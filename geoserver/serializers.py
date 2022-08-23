@@ -15,9 +15,7 @@ class GeoServerSerialization(serializers.ModelSerializer):
             dict: BNDESTransaction serialized data
         """
 
-        response_ope, obj = INPEGeoserverCopy.objects.filter(
-            data=data
-        ).get_or_create(**data)
+        response_ope, obj = INPEGeoserverCopy.objects.filter(**data).get_or_create(**data)
 
         if obj == False:
             response_ope.save()
