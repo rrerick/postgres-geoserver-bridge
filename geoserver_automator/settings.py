@@ -12,12 +12,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
-import os
+import os, environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # .env file for security, loading here!
+env = environ
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     load_dotenv(dotenv_file)
@@ -85,8 +86,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'geoserver'),
-        'USER': os.environ.get('DB_USER', 'docker'),
-        'PASSWORD': os.environ.get('DB_PASS', 'docker'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASS', 'postgres'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': '5432',
     }

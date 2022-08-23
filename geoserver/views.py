@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from .database_connection import GEOSERVER_DB
 # Create your views here.
@@ -11,6 +11,6 @@ def connection_geoserver_db(request):
         request (get)
     """
 
-    reponse_db = GEOSERVER_DB.database_connection()
+    reponse_db = GEOSERVER_DB.manager_db_with_geoserver()
 
-    return JsonResponse(reponse_db[0], safe=False)
+    return HttpResponse ("ok")
