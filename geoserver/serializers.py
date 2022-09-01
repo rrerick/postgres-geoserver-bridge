@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import INPEGeoserverCopy
+from .models import Metadados
 
 
 class GeoServerSerialization(serializers.ModelSerializer):
@@ -15,7 +15,7 @@ class GeoServerSerialization(serializers.ModelSerializer):
             dict: BNDESTransaction serialized data
         """
 
-        response_ope, obj = INPEGeoserverCopy.objects.filter(**data).get_or_create(**data)
+        response_ope, obj = Metadados.objects.filter(**data).get_or_create(**data)
 
         if obj == False:
             response_ope.save()
@@ -23,5 +23,5 @@ class GeoServerSerialization(serializers.ModelSerializer):
         return response_ope
 
     class Meta:
-        model = INPEGeoserverCopy
+        model = Metadados
         fields = '__all__'
