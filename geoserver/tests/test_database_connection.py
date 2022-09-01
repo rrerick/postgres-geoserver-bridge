@@ -5,7 +5,7 @@ from urllib.parse import quote_from_bytes
 from xmlrpc.client import FastMarshaller
 from django.test import TestCase
 from geoserver.serializers import GeoServerSerialization
-from geoserver.models import INPEGeoserverCopy, Workspaces
+from geoserver.models import Metadados, Workspaces
 import os
 import psycopg2
 from geoserver.database_connection import all_connections
@@ -100,8 +100,8 @@ class TestDatabaseConnection(TestCase):
             serializer.save()
             serializer_data = {}
 
-        obj = INPEGeoserverCopy.objects.count()
-        objec = INPEGeoserverCopy.objects.all().values()
+        obj = Metadados.objects.count()
+        objec = Metadados.objects.all().values()
 
         query_dict = {}
 
@@ -163,7 +163,7 @@ class TestDatabaseConnection(TestCase):
         from geo.Geoserver import Geoserver
         from django.db.models import Exists
 
-        subquery = INPEGeoserverCopy.objects.distinct(
+        subquery = Metadados.objects.distinct(
             'geoserver_workspace'
         ).values('geoserver_workspace')
 
@@ -177,7 +177,7 @@ class TestDatabaseConnection(TestCase):
             geoserver_workspace__in=list_result).values('geoserver_workspace')
 
         # It'll return the value that don't exists on Geoserver, but exists on DB
-        query_to_return_diference = INPEGeoserverCopy.objects.filter(
+        query_to_return_diference = Metadados.objects.filter(
             ~Exists(query)
         ).values('geoserver_workspace').distinct()
 

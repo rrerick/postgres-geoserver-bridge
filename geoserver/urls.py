@@ -5,5 +5,5 @@ from . import views
 app_name='geoserver'
 urlpatterns=[
 
-    path('',views.connection_geoserver_db, name='connection')
+    path('api/', views.RedirectRetriewView.as_view(), name='workspaces')
 ]
