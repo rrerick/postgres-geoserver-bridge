@@ -4,6 +4,47 @@ ________________________________________________________________________________
 
   <p align=center> This aplications works like a bridge between geoserver and registered database.</p>
   <br />
+  <h1>:construction_worker: HOW IT WORKS</h1>
+  
+ <p>When running, this application has the purpose of create Workspaces, Datastores and publish layers on Geoserver, all this had previously registered.
+ </p>
+ 
+ ![schema](https://user-images.githubusercontent.com/78693116/189120712-f8d98f32-3ef6-42ef-823f-fc5e1361bbf5.png)
+ 
+ On django admin the administration user must record information about database connection and geoserver connection, other way the application won't works. 
+ 
+With this information the application going to read the metadata on each database registered and with this will operate on geoserver.
+ 
+ ```bash
+ '{
+                    "bio": "#TODO",
+                    "author": null,
+                    "contact": "Contact <contact@email.com>",
+                    "source": [
+                        null
+                    ],
+                    "source_uri_s": [
+                        null
+                    ],
+                    "keywords": [
+                        null
+                    ],
+                    "geoserver_worskpace": "null",
+                    "geoserver_style_uri": null,
+                    "geoserver_ip": "null",
+                    "geoserver_title": null,
+                    "update_frequency": null,
+                    "scale": null,
+                    "structure_creation_date": null,
+                    "structure_modification_date": null,
+                    "last_commit_date": null,
+                    "comment_update_date": null
+            }'
+ ```
+ 
+ This part, above, is read by the application. Its the most important part.
+
+  
   <h1>:construction_worker: STEPS </h1>
   <br />
 
