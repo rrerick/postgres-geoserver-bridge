@@ -1,4 +1,4 @@
-"""geoserver_automator URL Configuration
+"""geoserver_management URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import re_path,path, include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 urlpatterns = [
 
-    path('geoserver/',include('geoserver.urls',namespace='geoserver')),
-    path("geoserver/", auth_views.LoginView.as_view(), name='login'),
+    path('geoserver/',include('pool.urls',namespace='geoserver')),
     path('admin/', admin.site.urls),
+    path('geoserver/api/token', TokenObtainPairView.as_view(), name = 'token_obtain_pair'),
+    path('geoserver/api/refresh', TokenRefreshView.as_view(), name = 'token_refresh'),
 ]

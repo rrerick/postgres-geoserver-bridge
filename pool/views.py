@@ -22,6 +22,9 @@ class RedirectRetriewView(APIView):
             'user': str(request.user),  # `django.contrib.auth.User` instance.
             'auth': str(request.auth),  # None
         }
+
+        return HttpResponse(request.user)
+        """
         if request.user:
 
             user_info, decrypted_passord = PGControl.manager_information()
@@ -36,3 +39,4 @@ class RedirectRetriewView(APIView):
             return HttpResponse('DONE')
         else:
             return Response(content)
+        """

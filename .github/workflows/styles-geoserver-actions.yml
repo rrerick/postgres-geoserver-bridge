@@ -1,0 +1,17 @@
+name: styles-geoserver-actions
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened,reopened]
+    branches:
+      - main
+
+jobs:
+  echo_run:
+    name: Run a Echo Job
+    runs-on: ubuntu-latest
+    steps:
+      uses: rrerick/geoserver-api@main
+

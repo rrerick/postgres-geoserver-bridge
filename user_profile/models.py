@@ -4,7 +4,7 @@ from cryptography.fernet import Fernet
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-from geoserver_api.settings import SECURITY_FILE
+from geoserver_management.settings import SECURITY_FILE
 
 # Create your models here.
 class create_pg_user(models.Model):
