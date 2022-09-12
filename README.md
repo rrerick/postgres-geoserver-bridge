@@ -17,29 +17,34 @@ With this information the application going to read the metadata on each databas
  
  ```bash
  '{
-                    "bio": "#TODO",
-                    "author": null,
-                    "contact": "Contact <contact@email.com>",
-                    "source": [
-                        null
-                    ],
-                    "source_uri_s": [
-                        null
-                    ],
-                    "keywords": [
-                        null
-                    ],
-                    "geoserver_worskpace": "null",
+            "bio": "#TODO",
+            "author": null,
+            "contact": "Contact <contact@email.com>",
+            "source": [
+                null
+            ],
+            "source_uri_s": [
+                null
+            ],
+            "keywords": [
+                null
+            ],
+            "geoserver": [
+                {
+                    "geoserver_workspace": null,
+                    "geoserver_layer_title": null,
+                    "geoserver_layer_name": null,
                     "geoserver_style_uri": null,
-                    "geoserver_ip": "null",
-                    "geoserver_title": null,
-                    "update_frequency": null,
-                    "scale": null,
-                    "structure_creation_date": null,
-                    "structure_modification_date": null,
-                    "last_commit_date": null,
-                    "comment_update_date": null
-            }'
+                    "geoserver_instance_name": null
+                }
+            ],
+            "update_frequency": null,
+            "scale": null,
+            "structure_creation_date": null,
+            "structure_modification_date": null,
+            "last_commit_date": null,
+            "comment_update_date": null
+        }'
  ```
  
  This part, above, is read by the application. Its the most important part.
@@ -63,17 +68,17 @@ With this information the application going to read the metadata on each databas
  <br><p><b>(THREE)</b></p>
  <p>Get your token acess and refresh on:<br>
   
- `localhost:8000/geoserver/api/token`
+ `localhost:8000/user/token`
   
   Or by shell
  ```bash
- curl -X POST -H "Content-Type: application/json" -d '{"username": "YOUR_NAME", "password": "YOUR_PASSWORD"}'  http://localhost:8000/geoserver/api/token/
+ curl -X POST -H "Content-Type: application/json" -d '{"username": "YOUR_NAME", "password": "YOUR_PASSWORD"}'  http://localhost:8000/user/token/
  ```
 </p>
 <br><p><b>(FOUR)</b></p>
  <p>Refresh Geoserver with this command.<br>
   
  ```bash
- curl  http://localhost:8000/geoserver/api/ -H "Authorization: Bearer YOUR_TOKEN"
+ curl  http://localhost:8000/geoserver/ -H "Authorization: Bearer YOUR_TOKEN"
  ```
 </p>
