@@ -85,14 +85,15 @@ With this information the application going to read the metadata on each databas
 
 <h2>:grey_exclamation: Settings </h2>
 
-<p><b> 1.(.ENV):</b><p></n>
+<p><b> 1.(.ENV):</b><p>
 <p>You need to create an .Env file, with this params:<br>
-&emsp;'dbname': Name of django database
-&emsp;'user': name of database user
-&emsp;'password': passwd of database user
-&emsp;'host': database host
-&emsp;'port': database port
-&emsp;'SECRET_KEY': django secret key
-&emsp;'secret': a random secret to generate passwords
+  <ul>
+<li>&emsp;<b>'dbname':</b> Name of django database</li><br>
+<li>&emsp;<b>'user': </b>name of database user</li><br>
+<li>&emsp;<b>'password':</b> passwd of database user</li><br>
+<li>&emsp;<b>'host': </b>database host</li><br>
+<li>&emsp;<b>'port':</b> database port</li><br>
+<li>&emsp;<b>'SECRET_KEY':</b> django secret key</li><br>
+<li>&emsp;<b>'secret':</b> a random secret to generate passwords</li>
 
 
