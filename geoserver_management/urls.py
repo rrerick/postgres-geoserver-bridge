@@ -22,6 +22,6 @@ urlpatterns = [
 
     path('geoserver/',include('pool.urls',namespace='geoserver')),
     path('admin/', admin.site.urls),
-    path('geoserver/api/token', TokenObtainPairView.as_view(), name = 'token_obtain_pair'),
-    path('geoserver/api/refresh', TokenRefreshView.as_view(), name = 'token_refresh'),
+    path('user/token', TokenObtainPairView.as_view(), name = 'token_obtain_pair'),
+    path('user/token/refresh', TokenRefreshView.as_view(), name = 'token_refresh'),
 ]

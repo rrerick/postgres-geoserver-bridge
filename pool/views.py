@@ -1,3 +1,4 @@
+from curses.ascii import HT
 from django.http import JsonResponse, HttpResponse
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -23,20 +24,26 @@ class RedirectRetriewView(APIView):
             'auth': str(request.auth),  # None
         }
 
-        return HttpResponse(request.user)
-        """
         if request.user:
 
-            user_info, decrypted_passord = PGControl.manager_information()
-            print('Connection With the user: %s' % user_info)
+            user_info, instance, actual_generator = PGControl.manager_information()
+            if user_info:
+                validator = True
+                while validator:
+                    print('Connection With the user: %s' % user_info)
 
-            if user_info and decrypted_passord:
-                is_ok = GEOSERVER_DB.manager_db_with_geoserver(
-                    user_info, decrypted_passord)
-                if 'Done' not in is_ok:
-                    return HttpResponse(is_ok)
-
-            return HttpResponse('DONE')
+                    try:
+                        if user_info:
+                            is_ok = GEOSERVER_DB.manager_db_with_geoserver(
+                                user_info, instance)
+                            if not is_ok:
+                                return HttpResponse("Don't Finished")
+                            else:
+                                next(actual_generator)
+                    except StopIteration:
+                        validator = False
+                return HttpResponse('Done')
+            else:
+                return HttpResponse('ERROR: Postgres user')
         else:
             return Response(content)
-        """
