@@ -82,3 +82,17 @@ With this information the application going to read the metadata on each databas
  curl  http://localhost:8000/geoserver/ -H "Authorization: Bearer YOUR_TOKEN"
  ```
 </p>
+
+<h2>:grey_exclamation: Settings </h2>
+
+<p><b> 1.(.ENV):</b><p></n>
+<p>You need to create an .Env file, with this params:<br>
+&emsp;'dbname': Name of django database
+&emsp;'user': name of database user
+&emsp;'password': passwd of database user
+&emsp;'host': database host
+&emsp;'port': database port
+&emsp;'SECRET_KEY': django secret key
+&emsp;'secret': a random secret to generate passwords
+
+
