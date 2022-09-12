@@ -1,9 +1,10 @@
 from .models import Pg_User
-from cryptography.fernet import Fernet
+import jwt,os
 from django.core.exceptions import ObjectDoesNotExist
 
 """THIS CLASS IS RESPONSIBLE FOR TAKE CONTROL ABOUT ALL POSTGRESQL USERS 
 """
+
 
 class PGControl():
 
@@ -17,15 +18,20 @@ class PGControl():
 
         instance = PGControl.retrieve_data()
         try:
-            instance = next(instance)
-            print(instance)
-            f = Fernet(instance.pub_key)
-            decrypted_password = f.decrypt(instance.token.encode())
-            print(decrypted_password.decode())
-            return instance, decrypted_password.decode()
+            instance_object = next(instance)
+            print(instance_object)
+            my_secret = os.getenv('secret')
+            values = jwt.decode(
+                instance_object.authtk,
+                key=my_secret,
+                algorithms=['HS256']
+            )
+
+            print(values)
+            return values, instance_object, instance
         except StopIteration:
-            print ("ERROR: DATABASES IN THE END")
-            return None, None
+            print("ERROR: DATABASES IN THE END")
+            return None, None, None
 
     @classmethod
     def retrieve_data(cls):
@@ -47,5 +53,3 @@ class PGControl():
             except ObjectDoesNotExist:
                 print('ERROR: DATABASE INFO WITH PK %s DOES NOT EXISTS' %(count))
                 break
-
-
