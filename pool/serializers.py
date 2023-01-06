@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Metadata
+from pool.models import Metadata
 
 
 class GeoServerSerialization(serializers.ModelSerializer):
@@ -16,8 +16,7 @@ class GeoServerSerialization(serializers.ModelSerializer):
         """
 
         response_ope, obj = Metadata.objects.filter(**data).get_or_create(**data)
-
-        if obj == False:
+        if obj is False:
             response_ope.save()
 
         return response_ope

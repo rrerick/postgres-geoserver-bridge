@@ -162,3 +162,12 @@ cython_debug/
 # Sensitive informations
 
 ./geoserver/*json
+
+#formatter
+.trunk/
+.flake8
+.hadolint.yaml
+.isort.cfg
+.markdownlint.yaml
+.shellcheckrc
+.*pem

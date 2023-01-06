@@ -1,5 +1,5 @@
 """
-WSGI config for geoserver_management project.
+WSGI config for postgres_geoserver_bridge project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'geoserver_management.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'postgres_geoserver_bridge.settings')
 
 application = get_wsgi_application()

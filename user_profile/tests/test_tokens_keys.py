@@ -1,7 +1,7 @@
 """from timeit import repeat
 from turtle import get_poly
 from django.test import TestCase
-from ..models import  UsersGeoserver, Token
+from ..models import  UsersGeoserver, users
 from django.contrib.auth.models import User, UserManager
 from cryptography.fernet import Fernet
 # Create your tests here.
@@ -20,7 +20,7 @@ class UsersProfileTests(TestCase):
             geoserver_password = 'geoserver',
             repeat_password = 'geoserver',
         )
-        self.object = Token.objects.get()
+        self.object = users.objects.get()
         self.objects.save()
     def test_to_get_token_passwd(self):
         #TEST to retrieve password's token and decrypt message

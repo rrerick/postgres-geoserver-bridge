@@ -1,18 +1,23 @@
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from user_profile.pg_user import PGControl
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .connection_manager import GEOSERVER_DB
+from pool.connection_manager import Geoserver_Db
 # Create your views here.
 
 
-class RedirectRetriewView(APIView):
+class AuthModelMixIn():
+    """AuthView
+    """
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [AllowAny]
+
+
+class RedirectRetriewView(AuthModelMixIn, APIView):
     """AuthView - After login the user is going to be redirected to here.
-    --- NEEDS TO CHANGE TO A TOKEN AUTH
     """
     authentication_classes = [JWTAuthentication]
     permission_classes = [AllowAny]
@@ -23,20 +28,35 @@ class RedirectRetriewView(APIView):
             'auth': str(request.auth),  # None
         }
 
-        return HttpResponse(request.user)
-        """
         if request.user:
+            instance = PGControl.retrieve_data()
+            validator = True
+            while validator:
 
-            user_info, decrypted_passord = PGControl.manager_information()
-            print('Connection With the user: %s' % user_info)
+                user_info, instance2, actual_generator = PGControl.manager_information(
+                    instance
+                )
 
-            if user_info and decrypted_passord:
-                is_ok = GEOSERVER_DB.manager_db_with_geoserver(
-                    user_info, decrypted_passord)
-                if 'Done' not in is_ok:
-                    return HttpResponse(is_ok)
+                if user_info:
+                    print('Connection With the user: %s' % user_info)
 
-            return HttpResponse('DONE')
+                    try:
+
+                        is_ok = Geoserver_Db.manager_db_with_geoserver(
+                            user_info,
+                            instance2
+                        )
+
+                        if not is_ok:
+                            return HttpResponse("Don't Finished")
+                        elif "TABLE DOESN'T EXISTS IN THIS DATABASE" in is_ok:
+                            response = is_ok + ' - ' + str(instance2)
+                            return HttpResponse(response)
+                        else:
+                            continue
+
+                    except StopIteration:
+                        validator = False
+                return HttpResponse('<p><b>Finished -- You could verificate on the log file</b></p>')
         else:
             return Response(content)
-        """

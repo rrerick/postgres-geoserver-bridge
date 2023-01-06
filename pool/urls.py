@@ -1,8 +1,7 @@
-from django.urls import path, re_path
+from django.urls import path
 from . import views
 
-app_name='geoserver'
-urlpatterns=[
-
-    path('api/', views.RedirectRetriewView.as_view(), name='workspaces')
+app_name = 'geoserver'
+urlpatterns = [
+    path('', views.RedirectRetriewView.as_view(), name='workspaces')
 ]
