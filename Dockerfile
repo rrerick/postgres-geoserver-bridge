@@ -20,10 +20,14 @@ RUN apt-get install postgresql-client -y
 
 #install pip requirements
 RUN python -m pip install --upgrade pip
+COPY ./bootstrap_admin ./app
+RUN apt-get update -y
 
 #install dependencies
 COPY requirements*.txt /app
-RUN pip install -r requirements.txt 
+
+RUN pip install -r requirements.txt \
+&& mkdir /app/styles/
 
 #COPY FILES
 COPY . /app

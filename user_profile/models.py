@@ -64,6 +64,14 @@ class UsersGeoserver (models.Model):
     )
 
     def save(self, *args, **kwargs):
+
+        if ('http://' in self.geoserver_ip):
+            self.geoserver_ip = self.geoserver_ip.replace('http://', '')
+        elif ('https://' in self.geoserver_ip):
+            self.geoserver_ip = self.geoserver_ip.replace('https://', '')
+        else:
+            self.geoserver_ip = self.geoserver_ip
+
         payload_data = {
             "sub":"geoserver_user",
             "name":self.geoserver_user,

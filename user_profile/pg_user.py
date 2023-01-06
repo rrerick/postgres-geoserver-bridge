@@ -1,5 +1,6 @@
 from .models import Pg_User
-import jwt,os
+import jwt
+import os
 from django.core.exceptions import ObjectDoesNotExist
 
 """THIS CLASS IS RESPONSIBLE FOR TAKE CONTROL ABOUT ALL POSTGRESQL USERS 
@@ -9,17 +10,16 @@ from django.core.exceptions import ObjectDoesNotExist
 class PGControl():
 
     @staticmethod
-    def manager_information():
+    def manager_information(instance):
         """master of information
         RETURN:
             instance(): about database information
             decrypted_password : about password
         """
 
-        instance = PGControl.retrieve_data()
         try:
             instance_object = next(instance)
-            print(instance_object)
+            print('user: ', instance_object)
             my_secret = os.getenv('secret')
             values = jwt.decode(
                 instance_object.authtk,
@@ -27,7 +27,6 @@ class PGControl():
                 algorithms=['HS256']
             )
 
-            print(values)
             return values, instance_object, instance
         except StopIteration:
             print("ERROR: DATABASES IN THE END")
@@ -49,7 +48,8 @@ class PGControl():
             try:
                 instance = Pg_User.objects.get(id=count)
                 count += 1
+                print(instance)
                 yield instance
             except ObjectDoesNotExist:
-                print('ERROR: DATABASE INFO WITH PK %s DOES NOT EXISTS' %(count))
+                print('ERROR: DATABASE INFO WITH PK %s DOES NOT EXISTS' % (count))
                 break

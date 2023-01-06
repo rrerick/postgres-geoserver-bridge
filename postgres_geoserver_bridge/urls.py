@@ -1,4 +1,4 @@
-"""geoserver_management URL Configuration
+"""postgres_geoserver_bridge URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -14,12 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
-from django.urls import re_path,path, include
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from django.urls import path, include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
-
     path('geoserver/',include('pool.urls',namespace='geoserver')),
     path('admin/', admin.site.urls),
     path('user/token', TokenObtainPairView.as_view(), name = 'token_obtain_pair'),
